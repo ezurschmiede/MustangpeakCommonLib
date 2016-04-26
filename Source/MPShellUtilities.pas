@@ -2022,8 +2022,10 @@ begin
             Result := Flags and SFGAO_FOLDER <> 0
         end
       finally
-        if LastPIDL^.mkid.cb = 0 then
-          LastPIDL^.mkid.cb := Last_CB;
+        if Assigned(LastPIDL) then begin // EZ - 1.4.2014: on some system >= W7 a local service running on local account has nil here
+          if LastPIDL^.mkid.cb = 0 then
+            LastPIDL^.mkid.cb := Last_CB;
+        end;
       end
     end
   end
